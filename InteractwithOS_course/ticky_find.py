@@ -49,10 +49,18 @@ def get_users(file):
                log[category] += 1
             else:
                per_user[username] = {'INFO':0, 'ERROR':1}
-   sorted_user = sorted(per_user.items())
+   sorted_user = [("USERNAME", "INFO", "ERROR")] + sorted(per_user.items())
+   with open("user_statistics.csv", "w") as user_file:
+       for line in sorted_user:
+           if isinstance(line[1], dict):
+            user_file.write("{}, {}, {}\n".format(line[0], line[1].get("INFO"), line[1].get("ERROR")))
+           else:
+              user_file.write("{}, {}, {}\n".format(line[0], line[1], line[2]))
    return sorted_user
 
-print(get_error('InteractwithOS_course\syslog.txt'))
-# def generate_report()
+def main():
+   file = 'InteractwithOS_course\syslog.txt'
+   get_error(file)
+   get_users(file)
 
-# if __init__ == '__main__':
+main()
