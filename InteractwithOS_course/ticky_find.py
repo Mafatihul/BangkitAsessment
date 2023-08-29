@@ -30,14 +30,14 @@ def get_error(file):
         if messages != None:
            err_messages.append(messages[1])
       f.close()
-      for err in err_messages:
-         if err in count_err:
-            count_err[err] += 1
-         else:
-            count_err[err] = 1
-   return count_err
+   for err in err_messages:
+       if err in count_err:
+        count_err[err] += 1
+       else:
+         count_err[err] = 1
+   return sorted(count_err.items(), reverse=True)
 
-print(get_error('syslog.txt'))
+print(get_error('InteractwithOS_course\syslog.txt'))
 
 # def get_users(file):
 
